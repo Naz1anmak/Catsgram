@@ -18,6 +18,11 @@ public class UserService {
         return users.values();
     }
 
+    public User getUser(Long id) {
+        return Optional.ofNullable(users.get(id))
+                .orElseThrow(() -> new NotFoundException("Юзер с id = " + id + " не найден"));
+    }
+
     public User create(@RequestBody User user) {
         if (user.getEmail() == null || user.getEmail().isBlank()) {
             throw new ConditionsNotMetException("Имейл должен быть указан");
