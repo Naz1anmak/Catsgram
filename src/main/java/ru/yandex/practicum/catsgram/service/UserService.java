@@ -18,9 +18,9 @@ public class UserService {
         return users.values();
     }
 
-    public User getUser(Long id) {
-        return Optional.ofNullable(users.get(id))
-                .orElseThrow(() -> new NotFoundException("Юзер с id = " + id + " не найден"));
+    public User findById(Long userId) {
+        return Optional.ofNullable(users.get(userId))
+                .orElseThrow(() -> new NotFoundException("Юзер с id = " + userId + " не найден"));
     }
 
     public User create(@RequestBody User user) {

@@ -38,9 +38,9 @@ public class PostService {
                 .toList();
     }
 
-    public Post getPost(Long id) {
-        return Optional.ofNullable(posts.get(id))
-                .orElseThrow(() -> new NotFoundException("Пост с id = " + id + " не найден"));
+    public Post findById(Long postId) {
+        return Optional.ofNullable(posts.get(postId))
+                .orElseThrow(() -> new NotFoundException("Пост с id = " + postId + " не найден"));
     }
 
     public Post create(Post post) {

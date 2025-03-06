@@ -1,6 +1,7 @@
 package ru.yandex.practicum.catsgram.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
@@ -26,12 +27,13 @@ public class PostController {
         return postService.findAll(sortOrder, from, size);
     }
 
-    @GetMapping("/{id}")
-    public Post getPost(@PathVariable Long id) {
-        return postService.getPost(id);
+    @GetMapping("/{postId}")
+    public Post findById(@PathVariable Long postId) {
+        return postService.findById(postId);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post) {
         return postService.create(post);
     }
