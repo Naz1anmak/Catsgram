@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class ImageService {
     private final PostService postService;
     private final Map<Long, Image> images = new HashMap<>();
-    @Value("${catsgram.images.directory}")
+    @Value("${catsgram.image-directory}")
     private String imageDirectory;
 
     public List<Image> getPostImages(long postId) {
