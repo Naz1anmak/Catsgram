@@ -1,7 +1,7 @@
 package ru.yandex.practicum.catsgram.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+//import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.exception.ParameterNotValidException;
 import ru.yandex.practicum.catsgram.model.Post;
@@ -41,11 +41,11 @@ public class PostController {
         return postService.findById(postId);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Post create(@RequestBody Post post) {
-        return postService.create(post);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Post create(@RequestBody Post post) {
+//        return postService.create(post);
+//    }
 
     @PutMapping
     public Post update(@RequestBody Post newPost) {

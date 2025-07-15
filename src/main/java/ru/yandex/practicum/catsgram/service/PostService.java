@@ -6,7 +6,7 @@ import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
 
-import java.time.Instant;
+//import java.time.Instant;
 import java.util.*;
 
 // Указываем, что класс PostService - является бином и его
@@ -43,19 +43,19 @@ public class PostService {
                 .orElseThrow(() -> new NotFoundException("Пост с id = " + postId + " не найден"));
     }
 
-    public Post create(Post post) {
-        userService.findUserById(post.getAuthorId())
-                .orElseThrow(() -> new ConditionsNotMetException("Автор с id = " + post.getAuthorId() + " не найден"));
-
-        if (post.getDescription() == null || post.getDescription().isBlank()) {
-            throw new ConditionsNotMetException("Описание не может быть пустым");
-        }
-
-        post.setId(getNextId());
-        post.setPostDate(Instant.now());
-        posts.put(post.getId(), post);
-        return post;
-    }
+//    public Post create(Post post) {
+//        userService.findUserById(post.getAuthorId())
+//                .orElseThrow(() -> new ConditionsNotMetException("Автор с id = " + post.getAuthorId() + " не найден"));
+//
+//        if (post.getDescription() == null || post.getDescription().isBlank()) {
+//            throw new ConditionsNotMetException("Описание не может быть пустым");
+//        }
+//
+//        post.setId(getNextId());
+//        post.setPostDate(Instant.now());
+//        posts.put(post.getId(), post);
+//        return post;
+//    }
 
     public Post update(Post newPost) {
         if (newPost.getId() == null) {

@@ -1,5 +1,8 @@
 package ru.yandex.practicum;
 
+import org.postgresql.ds.PGConnectionPoolDataSource;
+
+import javax.sql.PooledConnection;
 import java.sql.*;
 
 public class Main {
@@ -8,33 +11,24 @@ public class Main {
         String user = "dbuser";
         String password = "12345";
 
-        Connection conn = null;
+        PGConnectionPoolDataSource ds = new PGConnectionPoolDataSource();
+        ds.setURL(url);
+        ds.setUser(user);
+        ds.setPassword(password);
+        PooledConnection pooledConnection = null;
         try {
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to PostgreSQL server successfully.");
+            pooledConnection = ds.getPooledConnection();
+            String sql = "SELECT * FROM films WHERE kind = ? AND len_min = ?";
+            PreparedStatement preparedStatement = pooledConnection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, "Sci-Fi");
+            preparedStatement.setInt(2, 110);
 
-            Statement stmt = conn.createStatement();
-            String createTableQuery =
-                    "CREATE TABLE users (" +
-                            "id INT PRIMARY KEY NOT NULL, " +
-                            "name TEXT NOT NULL, " +
-                            "age INT NOT NULL, " +
-                            "city TEXT NOT NULL);";
-
-            String insertQuery = "INSERT INTO users (id, name, age, city) VALUES (1, 'Simpa', 8, 'Ufa')";
-
-            stmt.executeUpdate(createTableQuery);
-            stmt.executeUpdate(insertQuery);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getString("title"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

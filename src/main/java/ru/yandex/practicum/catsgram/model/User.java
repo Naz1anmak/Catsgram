@@ -1,15 +1,10 @@
 package ru.yandex.practicum.catsgram.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 
-@Getter
-@Setter
-@ToString
+@Data
 @EqualsAndHashCode(of = {"email"})
 public class User {
     private Long id;
